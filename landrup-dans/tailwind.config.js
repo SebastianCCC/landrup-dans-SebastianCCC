@@ -1,8 +1,29 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    fontSize: {
+      sm: '18px',
+      base: '24px',
+      lg: '36px',
+    },
+    extend: {
+      width: {
+        mobile: '411px',
+      },
+      fontFamily: {
+        Ubuntu: 'Ubuntu, sans-serif',
+      },
+      colors: {
+        primary: '#EAEAEA',
+        secondary: '#5E2E53',
+        ternary: '#E1A1E9',
+        additional: '#000000',
+      },
+      padding: {
+        page: '28px',
+      },
+    },
   },
   plugins: [],
 }
