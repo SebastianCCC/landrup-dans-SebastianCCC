@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import Tab from './Header/Tab'
 
 const Layout = ({ children }) => {
   let { pathname } = useLocation()
@@ -7,7 +8,7 @@ const Layout = ({ children }) => {
   const aktiviteterID = !title.includes('aktiviteter/')
   return (
     <div className="w-mobile h-screen overflow-auto bg-secondary">
-      <main className={`${aktiviteterID && title && 'p-page'}`}>
+      <main className={`${aktiviteterID && title && 'p-page pb-24'}`}>
         {aktiviteterID && title && title !== 'log ind' && (
           <h1 className="pb-page text-lg text-primary font-normal capitalize">{title}</h1>
         )}
@@ -15,7 +16,7 @@ const Layout = ({ children }) => {
       </main>
       {title && title !== 'log ind' && (
         <header className="fixed w-mobile bottom-0 z-20">
-          <div>hey</div>
+          <Tab />
         </header>
       )}
     </div>

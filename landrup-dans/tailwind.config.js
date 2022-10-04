@@ -16,6 +16,7 @@ module.exports = {
       },
       dropShadow: {
         button: '3px 4px 2px rgba(0, 0, 0, 0.25)',
+        tab: '0px -3px 2px rgba(0, 0, 0, 0.25)',
       },
       colors: {
         primary: '#EAEAEA',
