@@ -10,7 +10,13 @@ const Layout = ({ children }) => {
     <div className="w-mobile h-screen overflow-auto bg-secondary">
       <main className={`${aktiviteterID && title && 'p-page pb-24'}`}>
         {aktiviteterID && title && title !== 'log ind' && (
-          <h1 className="pb-page text-lg text-primary font-normal capitalize">{title}</h1>
+          <h1
+            className={`${
+              title === 'søg' ? 'pb-[13px]' : 'pb-page'
+            } text-lg text-primary font-normal capitalize`}
+          >
+            {title}
+          </h1>
         )}
         {children}
       </main>
