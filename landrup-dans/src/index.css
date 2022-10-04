@@ -9,7 +9,7 @@
 }
 
 .button {
-  @apply w-full p-4 text-center drop-shadow-button bg-secondary rounded-xl text-primary text-sm font-light;
+  @apply w-full px-4 py-3 text-center drop-shadow-button bg-secondary rounded-xl text-primary text-sm font-light;
 }
 
 html {
