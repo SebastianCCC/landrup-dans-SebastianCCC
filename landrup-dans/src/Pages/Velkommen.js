@@ -1,5 +1,5 @@
-import Logo from '../Assets/Images/Logo.png'
 import splashImage from '../Assets/Images/splash-image.jpg'
+import { Logo } from '../Assets'
 import Button from '../Components/Main/Button'
 
 const Velkommen = () => {
@@ -9,7 +9,7 @@ const Velkommen = () => {
         <img className="object-cover" src={splashImage} />
       </div>
       <div className="row-start-2 row-end-3 col-span-full">
-        <img src={Logo} />
+        <Logo />
       </div>
       <div className="flex flex-col justify-end items-center row-start-1 row-end-3 col-span-full py-[53px]">
         <Button title="Kom i gang" link="aktiviteter" />
