@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
   const aktiviteterID = !title.includes('aktiviteter/')
   return (
     <div className="w-mobile h-screen overflow-auto bg-secondary">
-      <main className={`${aktiviteterID && title && 'p-page pb-24'}`}>
+      <main className={`${aktiviteterID && title && title !== 'log ind' && 'p-page pb-24'}`}>
         {aktiviteterID && title && title !== 'log ind' && (
           <h1
             className={`${
