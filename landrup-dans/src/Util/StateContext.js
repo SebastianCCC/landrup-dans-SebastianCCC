@@ -3,7 +3,7 @@ import { createContext, useMemo, useState } from 'react'
 const StateContext = createContext()
 
 const StateProvider = ({ children }) => {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState(null)
   const [loaded, setLoaded] = useState(false)
 
   const value = useMemo(() => ({ user, setUser, loaded, setLoaded }), [user, loaded])
