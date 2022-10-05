@@ -14,15 +14,21 @@ const Aktivitetsdetaljer = () => {
   let navigate = useNavigate()
 
   const SignUpForAktivitet = () => {
+    setLoaded(true)
     fetch(`http://${process.env.REACT_APP_IP}/api/v1/users/${user.userId}/activities/${id}`, {
       method: SignedUp ? 'DELETE' : 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
     })
       .then((response) => (SignedUp ? response.text() : response.json()))
       .then(() => {
-        navigate('/kalender', { replace: true })
+        setTimeout(() => {
+          setLoaded(false)
+          navigate('/kalender', { replace: true })
+        }, 2000)
       })
-      .catch(() => {})
+      .catch(() => {
+        setLoaded(false)
+      })
   }
   return (
     <>
