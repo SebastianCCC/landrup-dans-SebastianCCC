@@ -26,7 +26,7 @@ const Aktivitetsdetaljer = () => {
   }
   return (
     <>
-      {aktiviteter && userData && (
+      {aktiviteter && (
         <>
           <div className="relative grid min-h-[489px]">
             <img
@@ -37,8 +37,8 @@ const Aktivitetsdetaljer = () => {
             <div className="relative flex flex-col justify-end items-end pr-page pb-page">
               {user?.token ? (
                 <>
-                  {userData.age >= aktiviteter.minAge &&
-                    userData.age <= aktiviteter.maxAge &&
+                  {userData?.age >= aktiviteter?.minAge &&
+                    userData?.age <= aktiviteter?.maxAge &&
                     user.role !== 'instructor' && (
                       <Button
                         title={`${SignedUp ? 'Forlad' : 'Tilmeld'}`}
