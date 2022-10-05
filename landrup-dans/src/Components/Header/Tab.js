@@ -1,7 +1,10 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { HomeIcon, SogIcon, kalenderIcon } from './Assets'
+import { StateContext } from '../../Util/StateContext'
 
 const Tab = () => {
+  const { user } = useContext(StateContext)
   const NavigationTab = [
     {
       link: '/aktiviteter',
@@ -12,7 +15,7 @@ const Tab = () => {
       Icon: SogIcon,
     },
     {
-      link: '/kalender',
+      link: user ? '/kalender' : '/log-ind',
       Icon: kalenderIcon,
     },
   ]

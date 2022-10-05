@@ -12,7 +12,7 @@ const Velkommen = () => {
         <Logo />
       </div>
       <div className="flex flex-col justify-end items-center row-start-1 row-end-3 col-span-full py-[53px]">
-        <Button title="Kom i gang" link="aktiviteter" />
+        <Button title="Kom i gang" link="/aktiviteter" />
       </div>
     </div>
   )
