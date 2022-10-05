@@ -8,13 +8,13 @@ const Kalender = () => {
   const { user } = useContext(StateContext)
   const [filteredKalender, setFilteredKalender] = useState([])
   const { aktiviteter } = AktivitetApi({})
-  const { userData } = LandrupApiUser({ id: user.userId, token: user.token })
+  const { userData } = LandrupApiUser({ id: user?.userId, token: user?.token })
   console.log(filteredKalender)
 
   useEffect(() => {
     setFilteredKalender(
       aktiviteter &&
-        aktiviteter.filter((singleAktivitet) => singleAktivitet.instructorId === user.userId)
+        aktiviteter.filter((singleAktivitet) => singleAktivitet.instructorId === user?.userId)
     )
   }, [aktiviteter])
   return (
@@ -40,7 +40,7 @@ const Kalender = () => {
         </section>
       ) : (
         <h2 className="text-sm font-normal text-white">
-          Det ser ud til du ikke har nogen planer...
+          {user ? 'Det ser ud til du ikke har nogen planer...' : 'Du er ikke logget ind...'}
         </h2>
       )}
     </>

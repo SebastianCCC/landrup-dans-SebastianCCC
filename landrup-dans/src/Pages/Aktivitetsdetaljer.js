@@ -1,11 +1,30 @@
 import AktivitetApi from '../Hooks/AktivitetApi'
-import { useParams } from 'react-router-dom'
+import LandrupApiUser from '../Hooks/LandrupApiUser'
+import { useState, useContext, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import Button from '../Components/Main/Button'
+import { StateContext } from '../Util/StateContext'
 
 const Aktivitetsdetaljer = () => {
+  const { user, setLoaded } = useContext(StateContext)
   const { id } = useParams()
   const { aktiviteter } = AktivitetApi({ id })
-  console.log(aktiviteter)
+  const { userData } = LandrupApiUser({ id: user?.userId, token: user?.token })
+  const SignedUp = userData && userData.activities.some((aktivitet) => aktivitet.id == id)
+  let navigate = useNavigate()
+  console.log(SignedUp)
+
+  const SignUpForAktivitet = () => {
+    fetch(`http://${process.env.REACT_APP_IP}/api/v1/users/${user.userId}/activities/${id}`, {
+      method: SignedUp ? 'DELETE' : 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
+    })
+      .then((response) => (SignedUp ? response.text() : response.json()))
+      .then(() => {
+        navigate('/kalender', { replace: true })
+      })
+      .catch(() => {})
+  }
   return (
     <>
       {aktiviteter && (
@@ -17,7 +36,14 @@ const Aktivitetsdetaljer = () => {
               alt=""
             />
             <div className="relative flex flex-col justify-end items-end pr-page pb-page">
-              <Button title="Tilmeld" />
+              {user?.token ? (
+                <Button
+                  title={`${SignedUp ? 'Forlad' : 'Tilmeld'}`}
+                  register={SignUpForAktivitet}
+                />
+              ) : (
+                <Button title="Log ind" link="/log-ind" />
+              )}
             </div>
           </div>
           <div className="text-white px-page pt-[18px] leading-tight">
