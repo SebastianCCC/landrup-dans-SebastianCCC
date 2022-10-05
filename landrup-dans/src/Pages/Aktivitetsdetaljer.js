@@ -12,7 +12,6 @@ const Aktivitetsdetaljer = () => {
   const { userData } = LandrupApiUser({ id: user?.userId, token: user?.token })
   const SignedUp = userData && userData.activities.some((aktivitet) => aktivitet.id == id)
   let navigate = useNavigate()
-  console.log(SignedUp)
 
   const SignUpForAktivitet = () => {
     fetch(`http://${process.env.REACT_APP_IP}/api/v1/users/${user.userId}/activities/${id}`, {
@@ -27,7 +26,7 @@ const Aktivitetsdetaljer = () => {
   }
   return (
     <>
-      {aktiviteter && (
+      {aktiviteter && userData && (
         <>
           <div className="relative grid min-h-[489px]">
             <img
@@ -37,10 +36,16 @@ const Aktivitetsdetaljer = () => {
             />
             <div className="relative flex flex-col justify-end items-end pr-page pb-page">
               {user?.token ? (
-                <Button
-                  title={`${SignedUp ? 'Forlad' : 'Tilmeld'}`}
-                  register={SignUpForAktivitet}
-                />
+                <>
+                  {userData.age >= aktiviteter.minAge &&
+                    userData.age > !aktiviteter.maxAge &&
+                    user.role !== 'instructor' && (
+                      <Button
+                        title={`${SignedUp ? 'Forlad' : 'Tilmeld'}`}
+                        register={SignUpForAktivitet}
+                      />
+                    )}
+                </>
               ) : (
                 <Button title="Log ind" link="/log-ind" />
               )}

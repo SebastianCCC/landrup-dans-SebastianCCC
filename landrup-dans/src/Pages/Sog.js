@@ -8,7 +8,6 @@ const Sog = () => {
   const [filteredAktiviteter, setFilteredAktiviteter] = useState([])
   const [searchValue, setsearchValue] = useState('')
   const { aktiviteter } = AktivitetApi({})
-  console.log(aktiviteter)
 
   const aktivitetFilter = ({ target }) => {
     setsearchValue(target.value.toLocaleLowerCase())

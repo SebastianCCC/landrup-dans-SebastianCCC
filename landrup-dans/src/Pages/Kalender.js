@@ -9,7 +9,6 @@ const Kalender = () => {
   const [filteredKalender, setFilteredKalender] = useState([])
   const { aktiviteter } = AktivitetApi({})
   const { userData } = LandrupApiUser({ id: user?.userId, token: user?.token })
-  console.log(filteredKalender)
 
   useEffect(() => {
     setFilteredKalender(

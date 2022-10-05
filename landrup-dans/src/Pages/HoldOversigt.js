@@ -7,7 +7,7 @@ const HoldOversigt = () => {
   const { user } = useContext(StateContext)
   const { id } = useParams()
   const { rosterData } = RosterApi({ userId: user.userId, token: user.token, id })
-  console.log(rosterData)
+
   return (
     <>
       {rosterData?.length ? (
