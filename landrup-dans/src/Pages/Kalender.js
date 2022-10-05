@@ -1,20 +1,21 @@
 import { useState, useContext, useEffect } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import KalenderKort from '../Components/Main/KalenderKort'
 import LandrupApiUser from '../Hooks/LandrupApiUser'
 import AktivitetApi from '../Hooks/AktivitetApi'
 import { StateContext } from '../Util/StateContext'
 
 const Kalender = () => {
-  const { user } = useContext(StateContext)
+  const { user, setUser, setLoaded } = useContext(StateContext)
   const [filteredKalender, setFilteredKalender] = useState([])
   const { aktiviteter } = AktivitetApi({})
-  const { userData } = LandrupApiUser({ id: user.userId, token: user.token })
-  console.log(filteredKalender)
+  const { userData } = LandrupApiUser({ id: user?.userId, token: user?.token })
+  let navigate = useNavigate()
 
   useEffect(() => {
     setFilteredKalender(
       aktiviteter &&
-        aktiviteter.filter((singleAktivitet) => singleAktivitet.instructorId === user.userId)
+        aktiviteter.filter((singleAktivitet) => singleAktivitet.instructorId === user?.userId)
     )
   }, [aktiviteter])
   return (
@@ -40,8 +41,29 @@ const Kalender = () => {
         </section>
       ) : (
         <h2 className="text-sm font-normal text-white">
-          Det ser ud til du ikke har nogen planer...
+          {user ? 'Det ser ud til du ikke har nogen planer...' : 'Du er ikke logget ind...'}
         </h2>
+      )}
+      {user ? (
+        <button
+          onClick={() => {
+            setLoaded(true)
+            setTimeout(() => {
+              setLoaded(false)
+              navigate('/aktiviteter', { replace: true })
+              setUser(null)
+            }, 1000)
+          }}
+          className="w-fit fixed bottom-16 left-0 text-right p-[15px] px-[25px] m-[28px] text-sm bg-primary rounded-xl drop-shadow-tab"
+        >
+          Log ud
+        </button>
+      ) : (
+        <Link to="/log-ind">
+          <button className="w-fit fixed bottom-16 left-0 text-right p-[15px] px-[25px] m-[28px] text-sm bg-primary rounded-xl drop-shadow-tab">
+            Log ind
+          </button>
+        </Link>
       )}
     </>
   )

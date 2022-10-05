@@ -8,10 +8,6 @@
   @apply box-border font-Ubuntu;
 }
 
-.button {
-  @apply w-full px-4 py-3 text-center drop-shadow-button bg-secondary rounded-xl text-primary text-sm font-light;
-}
-
 html {
   @apply scroll-smooth;
 }

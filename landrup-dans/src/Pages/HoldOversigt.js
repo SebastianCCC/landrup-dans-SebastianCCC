@@ -6,8 +6,8 @@ import { StateContext } from '../Util/StateContext'
 const HoldOversigt = () => {
   const { user } = useContext(StateContext)
   const { id } = useParams()
-  const { rosterData } = RosterApi({ userId: user.userId, token: user.token, id })
-  console.log(rosterData)
+  const { rosterData } = RosterApi({ userId: user?.userId, token: user?.token, id })
+
   return (
     <>
       {rosterData?.length ? (

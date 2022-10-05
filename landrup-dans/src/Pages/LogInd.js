@@ -85,7 +85,9 @@ const Logind = () => {
               </p>
             )}
             <div className="w-[75%] m-auto mt-[30px]">
-              <button className="button">{toUpperCase}</button>
+              <button className="w-full px-4 py-3 text-center drop-shadow-button bg-secondary rounded-xl text-primary text-sm font-light">
+                {toUpperCase}
+              </button>
             </div>
           </form>
         </div>
