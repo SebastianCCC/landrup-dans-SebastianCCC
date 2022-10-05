@@ -38,7 +38,7 @@ const Aktivitetsdetaljer = () => {
               {user?.token ? (
                 <>
                   {userData.age >= aktiviteter.minAge &&
-                    userData.age > !aktiviteter.maxAge &&
+                    userData.age <= aktiviteter.maxAge &&
                     user.role !== 'instructor' && (
                       <Button
                         title={`${SignedUp ? 'Forlad' : 'Tilmeld'}`}
