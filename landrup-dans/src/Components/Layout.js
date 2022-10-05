@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 import Tab from './Header/Tab'
 import { StateContext } from '../Util/StateContext'
 import { LoadingSpinner } from '../Assets'
@@ -7,6 +7,8 @@ import { LoadingSpinner } from '../Assets'
 const Layout = ({ children }) => {
   const { loaded } = useContext(StateContext)
   let { pathname } = useLocation()
+  let [searchParams] = useSearchParams()
+  const name = searchParams.get('name')
   const title = pathname.replace('/', '').replace('-', ' ').replace('sog', 'søg')
   const aktiviteterID = !title.includes('aktiviteter/')
   return (
@@ -23,7 +25,7 @@ const Layout = ({ children }) => {
               title === 'søg' ? 'pb-[13px]' : 'pb-page'
             } text-lg text-primary font-normal capitalize`}
           >
-            {title}
+            {name ? name.slice(0, 18) + '...' : title}
           </h1>
         )}
         {children}
