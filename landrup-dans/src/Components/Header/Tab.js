@@ -2,9 +2,11 @@ import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { HomeIcon, SogIcon, kalenderIcon } from './Assets'
 import { StateContext } from '../../Util/StateContext'
+import { useCookies } from 'react-cookie'
 
 const Tab = () => {
-  const { user } = useContext(StateContext)
+  const [cookies] = useCookies(['user'])
+
   const NavigationTab = [
     {
       link: '/aktiviteter',
@@ -15,7 +17,7 @@ const Tab = () => {
       Icon: SogIcon,
     },
     {
-      link: user ? '/kalender' : '/log-ind',
+      link: cookies.user ? '/kalender' : '/log-ind',
       Icon: kalenderIcon,
     },
   ]

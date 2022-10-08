@@ -4,21 +4,29 @@ import { useState, useContext, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Button from '../Components/Main/Button'
 import { StateContext } from '../Util/StateContext'
+import { useCookies } from 'react-cookie'
 
 const Aktivitetsdetaljer = () => {
+  const [cookies] = useCookies(['user'])
   const { user, setLoaded } = useContext(StateContext)
   const { id } = useParams()
   const { aktiviteter } = AktivitetApi({ id })
-  const { userData } = LandrupApiUser({ id: user?.userId, token: user?.token })
+  const { userData } = LandrupApiUser({ id: cookies.user?.userId, token: cookies.user?.token })
   const SignedUp = userData && userData.activities.some((aktivitet) => aktivitet.id == id)
   let navigate = useNavigate()
 
   const SignUpForAktivitet = () => {
     setLoaded(true)
-    fetch(`http://${process.env.REACT_APP_IP}/api/v1/users/${user.userId}/activities/${id}`, {
-      method: SignedUp ? 'DELETE' : 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
-    })
+    fetch(
+      `http://${process.env.REACT_APP_IP}/api/v1/users/${cookies.user.userId}/activities/${id}`,
+      {
+        method: SignedUp ? 'DELETE' : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${cookies.user.token}`,
+        },
+      }
+    )
       .then((response) => (SignedUp ? response.text() : response.json()))
       .then(() => {
         setTimeout(() => {
@@ -41,11 +49,11 @@ const Aktivitetsdetaljer = () => {
               alt=""
             />
             <div className="relative flex flex-col justify-end items-end pr-page pb-page">
-              {user?.token ? (
+              {cookies.user?.token ? (
                 <>
                   {userData?.age >= aktiviteter?.minAge &&
                     userData?.age <= aktiviteter?.maxAge &&
-                    user.role !== 'instructor' && (
+                    cookies.user.role !== 'instructor' && (
                       <Button
                         title={`${SignedUp ? 'Forlad' : 'Tilmeld'}`}
                         register={SignUpForAktivitet}
