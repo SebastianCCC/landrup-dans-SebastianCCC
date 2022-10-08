@@ -7,9 +7,11 @@ import Button from '../Components/Main/Button'
 import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { StateContext } from '../Util/StateContext'
+import { useCookies } from 'react-cookie'
 
 const Logind = () => {
-  const { setUser, setLoaded } = useContext(StateContext)
+  const [cookies, setCookie] = useCookies(['user'])
+  const { setLoaded } = useContext(StateContext)
   const [err, setErr] = useState(null)
   let { pathname } = useLocation()
   let navigate = useNavigate()
@@ -36,7 +38,7 @@ const Logind = () => {
       .then((response) => response.json())
       .then((data) => {
         setLoaded(false)
-        setUser(data)
+        setCookie('user', data)
         navigate(-1, { replace: true })
       })
       .catch(() => {

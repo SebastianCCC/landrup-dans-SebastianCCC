@@ -2,11 +2,12 @@ import { useState, useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import RosterApi from '../Hooks/RosterApi'
 import { StateContext } from '../Util/StateContext'
+import { useCookies } from 'react-cookie'
 
 const HoldOversigt = () => {
-  const { user } = useContext(StateContext)
+  const [cookies] = useCookies(['user'])
   const { id } = useParams()
-  const { rosterData } = RosterApi({ userId: user?.userId, token: user?.token, id })
+  const { rosterData } = RosterApi({ userId: cookies.user?.userId, token: cookies.user?.token, id })
 
   return (
     <>
