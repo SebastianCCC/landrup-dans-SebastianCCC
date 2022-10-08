@@ -3,6 +3,7 @@ import AktivitetApi from '../Hooks/AktivitetApi'
 import { Link } from 'react-router-dom'
 import { SogIcon } from '../Components/Main/Assets'
 import AktivitetKort from '../Components/Main/AktivitetKort'
+import { motion } from 'framer-motion'
 
 const Sog = () => {
   const [filteredAktiviteter, setFilteredAktiviteter] = useState([])
@@ -34,11 +35,14 @@ const Sog = () => {
       </form>
       {searchValue !== '' && (
         <div className="relative">
-          <section className="absolute left-0 top-0 w-full bg-[#7D5B75] border-primary border-t z-10 p-[13px]">
+          <motion.section
+            layout
+            className="absolute left-0 top-0 w-full bg-[#7D5B75] border-primary border-t z-10 p-[13px]"
+          >
             {filteredAktiviteter.length > 0 ? (
               filteredAktiviteter.map(({ name, description, asset, id }, i) => {
                 return (
-                  <div className="even:py-[13px]" key={i}>
+                  <motion.div layout className="even:py-[13px]" key={i}>
                     <Link to={`/aktiviteter/${id}`}>
                       <div className="flex items-center">
                         <div className="w-[80px] h-[80px] overflow-auto rounded-2xl">
@@ -50,15 +54,15 @@ const Sog = () => {
                         </div>
                       </div>
                     </Link>
-                  </div>
+                  </motion.div>
                 )
               })
             ) : (
-              <p className="font-normal text-white">
+              <motion.p layout className="font-normal text-white">
                 Der blev ikke fundet nogle aktiviteter. Prøv at søge efter noget andet.
-              </p>
+              </motion.p>
             )}
-          </section>
+          </motion.section>
         </div>
       )}
       <section className="flex flex-col mt-[55px]">
